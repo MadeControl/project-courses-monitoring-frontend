@@ -59,7 +59,7 @@ export class CourseInfoComponent implements OnInit {
   }
 
   calculateActiveModeByStarId(id: number): string {
-    if (id >= this.course.averageGrade) {
+    if (id <= this.course.averageGrade) {
       return 'active';
     }
     return '';
