@@ -1,32 +1,73 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightgrey">
   <div class="container-fluid">
-    <a class="navbar-brand ms-5" href="#">Courses Monitoring</a>
+    <a routerLink="/" class="navbar-brand ms-5">Courses Monitoring</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
       <ul class="navbar-nav me-2 mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Themes</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown"
+             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Темы
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
         </li>
       </ul>
 
       <form class="container-fluid d-flex ps-0">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-success" type="submit">Поиск</button>
       </form>
 
     </div>
 
     <ul class="navbar-nav me-2 mb-2 mb-lg-0 justify-content-end">
-      <li class="nav-item me-2">
-        <a class="nav-link" href="#">Teachers</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown1"
+           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Преподаватели
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
       </li>
     </ul>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-end">
-      <button type="button" class="btn btn-secondary justify-content-end me-2">Sign In</button>
-      <button type="button" class="btn btn-primary justify-content-end me-5">Sign Up</button>
+    <div *ngIf="isAuthenticated(); else notAuthenticated">
+      <div class="d-grid gap-2 d-md-flex justify-content-end">
+
+        <ul class="navbar-nav me-2 mb-2 mb-lg-0 justify-content-end">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown2" style="padding: 0 0"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img alt="Мой профиль" width="32" height="32"
+                   src="https://img-c.udemycdn.com/user/75x75/anonymous_3.png?Expires=1623766926&Signature=UTkXJHTYFeHtVmk3PqoyAqeLFe39GjxtdWUEoLO6Zc76zniwZREofa7JwyvBH5-B6Qr6RCo6pr~ak4snWfcgFdy5mR9RnJLfomgFXP8wVWLt0PH9RYEGO7pMZn5vJHwqYDLLfXcpLuDQksHMzatxI2cRemlaUeqLwyv1qzmuFuQi~D0ThW3-pg9ZH7AJ5K~gtuypQNRnHa5YeXEw4ZxvTrke8OlfzodsJFO1FBDxa6fL~i0Qp9JZb3MaFjR-iGDlbHvtgOff4yrfuraQMcNSmyjqn3rxnmuSpsz~OwFWeo3MiTK8YeSwIh2YJowXczoIAditucta6OCFQimKiF9gPg__&Key-Pair-Id=APKAITJV77WS5ZT7262A"
+              >
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+              <li><a class="dropdown-item" routerLink="/users/1">Мой профиль</a></li>
+              <li><a class="dropdown-item">Мои курсы</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <button type="button" class="btn btn-primary justify-content-end me-5" (click)="logOut()">Выйти</button>
+      </div>
     </div>
+    <ng-template #notAuthenticated>
+      <div class="d-grid gap-2 d-md-flex justify-content-end">
+        <button type="button" class="btn btn-secondary justify-content-end me-2" (click)="routeToLoginForm()">Войти</button>
+        <button type="button" class="btn btn-primary justify-content-end me-5" (click)="routeToRegistryForm()">Зарегистрироваться</button>
+      </div>
+    </ng-template>
 
   </div>
 </nav>

@@ -1,19 +1,17 @@
 <div class="card">
-  <img style="text-align: center" alt width="100%" height="135" src="favicon.ico">
+  <img style="text-align: center" alt width="100%" height="135" src="{{course.iconName}}">
   <div class="card-body">
-    <h5>Spring Framework</h5>
-    <p style="color: darkgrey">Daniil Polishchuk</p>
-    <p class="card-text">This is a wider card with sudporting text below as a natural lead-in to little bit longer.</p>
+    <p style="font-size: 16px; font-weight: bold">{{course.title}}</p>
+    <p style="color: darkgrey">{{course.author.name}}</p>
+    <p class="card-text">{{course.previewDescription}}</p>
   </div>
   <div class="card-footer">
     <strong>Graded:</strong>
     <small class="rating-result">
-      <span class="active"></span>
-      <span class="active"></span>
-      <span class="active"></span>
-      <span class="active"></span>
-      <span class="active"></span>
+      <span *ngFor="let starId of [1,2,3,4,5]"
+        class="{{calculateActiveModeByStarId(starId)}}">
+      </span>
     </small>
-    <strong>(7)</strong>
+    <strong>({{course.gradesQuantity}})</strong>
   </div>
 </div>

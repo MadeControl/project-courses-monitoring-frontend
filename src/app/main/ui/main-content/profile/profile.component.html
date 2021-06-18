@@ -1,0 +1,49 @@
+<form class="form-signin" name="form" novalidate>
+
+  <div class="signin-text">ЛИЧНЫЙ ПРОФИЛЬ</div>
+
+  <div class="form-group" style="margin-bottom: 15px">
+    <p style="font-size: 24px; margin-bottom: 20px"><b>Имя:</b><br>
+      <label style="width: 100%; padding-top: 5px">
+        <input class="form-control form-control-lg" [value]="user.firstname" [disabled]="!isEdit" name="firstname"
+               [(ngModel)]="user.firstname"
+        />
+      </label>
+    </p>
+    <p style="font-size: 24px; margin-bottom: 20px"><b>Фамилия:</b><br>
+      <label style="width: 100%; padding-top: 5px">
+        <input class="form-control form-control-lg" [value]="user.lastname" [disabled]="!isEdit" name="lastname"
+               [(ngModel)]="user.lastname"
+        />
+      </label>
+    </p>
+    <p style="font-size: 24px; margin-bottom: 20px"><b>Категория пользователя:</b><br>
+      <label style="width: 100%; padding-top: 5px">
+        <select class="form-control" id="role" name="role" [value]="user.role" [(ngModel)]="user.role"
+                [disabled]="!roleCanBeChanged()">
+          <option value="ADMIN">ADMIN</option>
+          <option value="TEACHER">TEACHER</option>
+          <option value="STUDENT">STUDENT</option>
+        </select>
+      </label>
+    </p>
+  </div>
+
+  <div *ngIf="isEdit; else notEditMode">
+    <div class="form-group" style="margin-bottom: 15px">
+      <button class="btn btn-lg btn-success btn-block" style="width: 20%; margin-right: 10px"
+              (click)="confirmEditProfile()"
+      >Сохранить</button>
+      <button class="btn btn-lg btn-danger btn-block" style="width: 20%; margin-right: 10px"
+              (click)="cancelEditProfile()"
+      >Отменить</button>
+    </div>
+  </div>
+  <ng-template #notEditMode>
+    <div class="form-group" style="margin-bottom: 15px">
+      <button class="btn btn-lg btn-primary btn-block" style="width: 20%; margin-right: 10px"
+              (click)="startEditProfile()"
+      >Редактировать</button>
+    </div>
+  </ng-template>
+</form>

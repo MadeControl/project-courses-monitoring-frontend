@@ -1,14 +1,92 @@
-<p>course-info works!</p>
-
-<div class="rating-area">
-  <input type="radio" id="star-5" name="rating" value="5">
-  <label for="star-5" title="Оценка «5»"></label>
-  <input type="radio" id="star-4" name="rating" value="4">
-  <label for="star-4" title="Оценка «4»"></label>
-  <input type="radio" id="star-3" name="rating" value="3">
-  <label for="star-3" title="Оценка «3»"></label>
-  <input type="radio" id="star-2" name="rating" value="2">
-  <label for="star-2" title="Оценка «2»"></label>
-  <input type="radio" id="star-1" name="rating" value="1">
-  <label for="star-1" title="Оценка «1»"></label>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-5" style="border-radius: 8px; border: 3px solid gray">
+    <div class="card-body">
+      <h1>{{course.title}}</h1>
+      <p style="font-size: 18px; margin-bottom: 0">{{course.previewDescription}}</p>
+      <strong>Graded:</strong>
+      <small class="rating-result">
+      <span *ngFor="let starId of [1,2,3,4,5]"
+            class="{{calculateActiveModeByStarId(starId)}}">
+      </span>
+      </small>
+      <strong>({{course.gradesQuantity}} оценок)</strong>
+      <p style="margin-bottom: 0"><strong>Студентов: {{course.studentsQuantity}}</strong></p>
+      <span>Автор: </span><a routerLink="/">{{course.author.name}}</a>
+      <p style="margin-top: 3px; font-size: 18px">Дата создания курса: {{course.created}}</p>
+    </div>
+  </div>
+  <div class="col-3">
+    <img style="text-align: center" alt width="100%" height="135px" src="{{course.iconName}}">
+  </div>
 </div>
+
+
+<div class="row" style="margin-top: 15px">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <h2>Требования</h2>
+    <ul>
+      <li *ngFor="let requirement of course.requirements">
+        <div><span>{{requirement.text}}</span></div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <h2>Описание</h2>
+    <div><span>{{course.fullDescription}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 25px">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <button type="button" class="btn btn-secondary" style="margin-bottom: 10px"
+            (click)="changeVisibilityVideos()"
+    >Видеоматериалы</button>
+
+    <div *ngIf="isShowVideos">
+      <table class="table shadow" style="width: 100%">
+        <thead class="shadow">
+        <tr>
+          <th scope="col">№</th>
+          <th scope="col">Название видео</th>
+          <th scope="col">Длительность</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let video of course.videos; let i = index" (click)="openDialog(video)">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ video.title }}</td>
+          <td>{{ calculateDurationTimeForVideo(video) }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 25px">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <p style="text-align: center; font-size: 18px">Пожалуйста, поставьте оценку этому курсу!</p>
+    <div class="rating-area">
+      <input type="radio" id="star-5" name="rating" value="5">
+      <label for="star-5" title="Оценка «5»"></label>
+      <input type="radio" id="star-4" name="rating" value="4">
+      <label for="star-4" title="Оценка «4»"></label>
+      <input type="radio" id="star-3" name="rating" value="3">
+      <label for="star-3" title="Оценка «3»"></label>
+      <input type="radio" id="star-2" name="rating" value="2">
+      <label for="star-2" title="Оценка «2»"></label>
+      <input type="radio" id="star-1" name="rating" value="1">
+      <label for="star-1" title="Оценка «1»"></label>
+    </div>
+  </div>
+</div>
+
