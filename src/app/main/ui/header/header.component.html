@@ -11,10 +11,8 @@
             Темы
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li *ngFor="let theme of themes"
+            ><a class="dropdown-item">{{theme.title}}</a></li>
           </ul>
         </li>
       </ul>
@@ -25,21 +23,6 @@
       </form>
 
     </div>
-
-    <ul class="navbar-nav me-2 mb-2 mb-lg-0 justify-content-end">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown1"
-           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Преподаватели
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </li>
-    </ul>
 
     <div *ngIf="isAuthenticated(); else notAuthenticated">
       <div class="d-grid gap-2 d-md-flex justify-content-end">

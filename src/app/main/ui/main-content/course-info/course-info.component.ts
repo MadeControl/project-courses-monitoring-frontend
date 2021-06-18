@@ -5,6 +5,7 @@ import {Video} from '../../../model/video.model';
 import {CourseService} from '../../../service/course.service';
 import {ActivatedRoute} from '@angular/router';
 import {Course} from '../../../model/course.model';
+import {TokenHolderService} from '../../../security/token-holder.service';
 
 @Component({
   selector: 'app-course-info',
@@ -32,16 +33,12 @@ export class CourseInfoComponent implements OnInit {
   };
   videos: Video[] = [];
 
-  constructor(public dialog: MatDialog, private courseService: CourseService, private activateRoute: ActivatedRoute) { }
+  constructor(public dialog: MatDialog, private courseService: CourseService,
+              private activateRoute: ActivatedRoute, private tokenHolderService: TokenHolderService) { }
 
   ngOnInit(): void {
     const id = +this.activateRoute.snapshot.params['id'];
-    this.courseService.getCourseById(id).subscribe(course => {
-      this.course = course;
-      console.log(`Course was uploaded from back-end`, course);
-    }, error => {
-      console.error(`Course wasn't uploaded from back-end`, error);
-    });
+    this.uploadCourseById(id);
   }
 
   openDialog(video: Video): void {
@@ -75,4 +72,27 @@ export class CourseInfoComponent implements OnInit {
     return `${hours}:${minutes}:${seconds}`;
   }
 
+  createGrade(grade: number): void {
+    const gradeObject = {courseId: this.course.id, grade, gradedBy: 'STUDENT'};
+    this.courseService.createGrade(gradeObject).subscribe(() => {
+      this.uploadCourseById(this.course.id);
+    });
+  }
+
+  isAuthenticated(): boolean {
+    return this.tokenHolderService.isAuthenticated();
+  }
+
+  private uploadCourseById(id: number): void {
+    this.courseService.getCourseById(id).subscribe(course => {
+      this.course = course;
+    }, error => {
+      console.error(`Course wasn't uploaded from back-end`, error);
+    });
+  }
+
+  formatDate(): string {
+    const date = new Date(this.course.created);
+    return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
+  }
 }

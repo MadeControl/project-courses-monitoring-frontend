@@ -13,7 +13,7 @@
       <strong>({{course.gradesQuantity}} оценок)</strong>
       <p style="margin-bottom: 0"><strong>Студентов: {{course.studentsQuantity}}</strong></p>
       <span>Автор: </span><a routerLink="/">{{course.author.name}}</a>
-      <p style="margin-top: 3px; font-size: 18px">Дата создания курса: {{course.created}}</p>
+      <p style="margin-top: 3px; font-size: 18px">Дата создания курса: {{formatDate()}}</p>
     </div>
   </div>
   <div class="col-3">
@@ -71,21 +71,21 @@
   </div>
 </div>
 
-<div class="row" style="margin-top: 25px">
+<div class="row" style="margin-top: 25px" *ngIf="isAuthenticated()">
   <div class="col-2"></div>
   <div class="col-8">
     <p style="text-align: center; font-size: 18px">Пожалуйста, поставьте оценку этому курсу!</p>
     <div class="rating-area">
-      <input type="radio" id="star-5" name="rating" value="5">
+      <input type="radio" id="star-5" name="rating" value="5" (click)="createGrade(5)">
       <label for="star-5" title="Оценка «5»"></label>
-      <input type="radio" id="star-4" name="rating" value="4">
+      <input type="radio" id="star-4" name="rating" value="4" (click)="createGrade(4)">
       <label for="star-4" title="Оценка «4»"></label>
-      <input type="radio" id="star-3" name="rating" value="3">
+      <input type="radio" id="star-3" name="rating" value="3" (click)="createGrade(3)">
       <label for="star-3" title="Оценка «3»"></label>
-      <input type="radio" id="star-2" name="rating" value="2">
+      <input type="radio" id="star-2" name="rating" value="2" (click)="createGrade(2)">
       <label for="star-2" title="Оценка «2»"></label>
-      <input type="radio" id="star-1" name="rating" value="1">
-      <label for="star-1" title="Оценка «1»"></label>
+      <input type="radio" id="star-1" name="rating" value="1" (click)="createGrade(1)">
+      <label class="active" for="star-1" title="Оценка «1»"></label>
     </div>
   </div>
 </div>

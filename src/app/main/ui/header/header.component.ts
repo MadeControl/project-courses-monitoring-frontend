@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {TokenHolderService} from '../../security/token-holder.service';
+import {Theme} from '../../model/theme.model';
+import {CourseService} from '../../service/course.service';
 
 @Component({
   selector: 'app-header',
@@ -10,10 +12,15 @@ import {TokenHolderService} from '../../security/token-holder.service';
 export class HeaderComponent implements OnInit {
 
   isShowProfile = false;
+  themes: Array<Theme> = [];
 
-  constructor(private router: Router, private tokenHolderService: TokenHolderService) { }
+  constructor(private router: Router, private tokenHolderService: TokenHolderService, private courseService: CourseService) { }
 
   ngOnInit(): void {
+    this.courseService.getAllThemes().subscribe(themes => {
+      this.themes = themes;
+      console.log('Themes was uploaded from back-end', themes);
+    });
   }
 
   routeToLoginForm(): void {
